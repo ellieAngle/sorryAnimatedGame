@@ -1,0 +1,23 @@
+(require racket/base) ;;This allows the type system to work.
+(require (file "cs230-graphics.scm")) ;;Pull in the definitions for the drawing window and stuff. Assumes the file is in the same directory. 
+(define side
+  (lambda ((length <real>) (heading <real>) (level <integer>))
+    (if (zero? level)
+        (drawto heading length)
+        (let ((len/3 (/ length 3))
+              (lvl-1 (- level 1)))
+          (side len/3 heading lvl-1)
+          (side len/3 (- heading PI/3) lvl-1)
+          (side len/3 (+ heading PI/3) lvl-1)
+          (side len/3 heading lvl-1)))))
+(define snowflake:0
+  (lambda ((length <real>) (level <integer>) (generator <function>))
+    (generator length 0.0 level)
+
+
+(define square-snowflake:1
+  (lambda ((length <real>) (level <integer>))
+    (flip-side length 0.0 level)
+    (flip-side length PI/2 level)
+    (flip-side length PI level)
+    (flip-side length (* -1 PI/2) level)))
